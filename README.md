@@ -69,11 +69,7 @@ python app.py
 ## Requirements
 
 - Python 3.8+
-- See 
-
-requirements.txt
-
- for package dependencies
+- See requirements.txt for package dependencies
 
 ## Notes
 
