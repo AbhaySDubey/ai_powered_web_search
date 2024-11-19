@@ -2,6 +2,9 @@
 
 A Flask-based web application that allows users to perform bulk web searches and extract relevant information using AI. The application supports multiple search APIs and AI-powered information extraction.
 
+### You can find the link to the Loom Video here: [loom.com](https://www.loom.com/share/e80f8b46da7f4badb7cc0ed5cce402f6?sid=89232b8b-6014-4af1-99c8-6ae3783f11d4)
+ - It shows the usage and results of a basic web search
+
 ## Features
 
 - **File Upload**: 
