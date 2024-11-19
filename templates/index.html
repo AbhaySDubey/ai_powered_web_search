@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title> AI Agent </title>
+</head>
+<body>
+    <!-- Heading -->
+    <div class="heading">
+        <h1 id="heading1"> AI Agent for Web-Search </h1>
+        <h2 id="heading2"> Search the web using custom queries/prompts for multiple entries at once! </h2>
+    </div>
+
+    <!-- File Upload and Display -->
+    <div class="main_content">
+        <!-- Container to display table -->
+        <div class="tables_container">
+            <!-- Original Data Table -->
+            <div class="table_container">
+                <h3>Original Data</h3>
+                {% if error_message %}
+                    <p style="color: #fa000a;">{{ error_message }}</p>
+                {% elif file_supported == 'Success' %}
+                    {{ original_table|safe }}
+                {% elif file_supported == 'Failure' %}
+                    <p style="color: #fa000a;">Unsupported File Format</p>
+                {% else %}
+                    <p>Upload CSV File</p>
+                {% endif %}
+            </div>
+    
+            <!-- Results Table -->
+            <div class="table_container">
+                <h3>Extracted Results</h3>
+                {% if results_table %}
+                <div class="download-container">
+                    <a href="{{ url_for('download_results') }}" class="download-button">
+                        Download Results
+                    </a>
+                </div>
+                    {{ results_table|safe }}
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Form to upload csv file -->
+        <!-- <h3>  </h3> -->
+        <div class="file_handler">
+            <form method="POST" action="{{ url_for('index') }}" enctype="multipart/form-data">
+                <p class="form_headings"> Upload File </p>
+                <input type="file" name="file" accept="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required><br>
+                <p class="form_instructions"> *Supported file types include: .csv, .xls, .xlsx </p><br>
+
+                <label for="dropdown"> Choose Search API </label>
+                <select name="dropdown" id="dropdown">
+                    <option value="serp_api"> Google Serp API (Limited Usage) </option>
+                    <!-- <option value="wikipedia_api"> Wikipedia API </option> -->
+                    <option value="ddg_api"> Duck Duck Go API (Free, Unlimited Usage) </option>
+                </select><br>
+                <button type="submit" id="upload_file"> Upload </button>
+                <br><br>
+            </form>
+
+            <form method="POST" action="{{ url_for('index') }}">
+                <p class="form_headings"> Enter your API Key (Search API) </p>
+                <input type="text" name="api_key_search" placeholder="Enter API Key (Search)"><br>
+                <p class="form_instructions"> *API Key Required only for Google Serp API</p><br>
+
+                <p class="form_headings"> Enter your API Key (LLM) </p>
+                <input type="text" name="api_key_llm" placeholder="Enter API Key (LLM)"><br><br>
+
+                <p class="form_headings"> Enter Prompt </p>
+                <input type="text" name="prompt_global" id="" placeholder="Enter Prompt"><br>
+                <p class="form_instructions"> *Global Prompt (Applied to all entries, if no internal prompt is provided) </p>
+
+                <button type="submit" id="submit_process"> Submit </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
